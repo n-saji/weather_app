@@ -4,12 +4,12 @@ import { ToolBar } from "./components/ToolBar/ToolBar.jsx";
 import { WeatherDetails } from "./components/Weather/Weather.jsx";
 
 function App() {
-  const [latitudes, setLatitudes] = useState("");
-  console.log(latitudes);
+  const [userSelection, setUserSelection] = useState();
+  console.log(userSelection);
   return (
     <>
-      <ToolBar setLatitudes={setLatitudes} />
-      <WeatherDetails latitudes={latitudes} />
+      <ToolBar setUserSelection={setUserSelection} />
+      <WeatherDetails userSelection={userSelection} />
     </>
   );
 }

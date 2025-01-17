@@ -1,76 +1,12 @@
-// import { useState } from "react";
-// import { GEO_API_URL, GEO_OPTIONS } from "../../../config/config.jsx";
-// import { AsyncPaginate } from "react-select-async-paginate";
-
-// export const SearchBar = ({ setResults }) => {
-//   const [input, setInput] = useState("");
-
-//   // const loadOptions = async (inputData) => {
-//   //   const response = await fetch(GEO_API_URL + `/cities?namePrefix=${inputData}`, GEO_OPTIONS);
-//   //   const response_1 = await response.json();
-//   //   return {
-//   //     options: response_1.data.map((city) => {
-//   //       return {
-//   //         value: `${city.latitude} ${city.longitude}`,
-//   //         label: `${city.name}, ${city.countryCode}`,
-//   //       };
-//   //     }),
-//   //   };
-//   // };
-//   const loadCities = (inputData) => {
-//     const response = fetch(
-//       GEO_API_URL + `/cities?namePrefix=${inputData}`,
-//       GEO_OPTIONS
-//     )
-//       .then((response) => response.json())
-//       .then((response_1) => {
-//         console.log(response_1);
-//         return response_1.data.map((city) => {
-//           return {
-//             value: `${city.latitude} ${city.longitude}`,
-//             label: `${city.name}, ${city.countryCode}`,
-//           };
-//         });
-//       });
-
-//     // return <div>{response}</div>;
-//   };
-
-//   const handleOnChange = (searchData) => {
-//     setInput(searchData);
-//     setResults(searchData);
-//   };
-
-//   return (
-//     // <AsyncPaginate
-//     //   placeholder="Search for city"
-//     //   debounceTimeout={1000}
-//     //   value={input}
-//     //   onChange={handleOnChange}
-//     //   loadOptions={loadOptions}
-//     // />
-//     <div className="search-bar">
-//       <input
-//         type="text"
-//         placeholder="Search for city"
-//         value={input}
-//         onChange={(e) => handleOnChange(e.target.value)}
-//       />
-//       {loadCities(input)}
-//     </div>
-//   );
-// };
-
-// export default SearchBar;
-
 import { useState, useEffect } from "react";
 import { GEO_API_URL, GEO_OPTIONS } from "../../../config/config.jsx";
 
-export const SearchBar = ({ setLatitudes }) => {
+export const SearchBar = ({ setUserSelection }) => {
   const [input, setInput] = useState("");
   const [debouncedInput, setDebouncedInput] = useState("");
   const [results, setResults] = useState();
   const [apiCall, setAPICall] = useState(true);
+  
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -119,7 +55,7 @@ export const SearchBar = ({ setLatitudes }) => {
             <div
               key={city.value}
               value={city.name}
-              onClick={() => handleDropDownClick(city.name, city.value)}
+              onClick={() => handleDropDownClick(city)}
             >
               {city.name + ", " + city.countryCode}
             </div>
@@ -128,16 +64,19 @@ export const SearchBar = ({ setLatitudes }) => {
     );
   };
 
-  const handleDropDownClick = (city, value) => {
-    setInput(city);
+  const handleDropDownClick = (city) => {
+    setInput(city.name);
     setAPICall(false);
     setResults([]);
-    setLatitudes(value);
+    setUserSelection(city);
   };
 
   const handleOnChange = (searchData) => {
     setInput(searchData);
     setAPICall(true);
+    if (searchData.length < 3) {
+      setResults([]);
+    }
   };
 
   return (

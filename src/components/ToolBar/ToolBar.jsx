@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { SearchBar } from "./SearchBar/SearchBar.jsx";
 
-export const ToolBar = ({ setLatitudes }) => {
+export const ToolBar = ({ setUserSelection }) => {
   return (
     <div className="tool-bar">
-      <SearchBar setLatitudes={setLatitudes} />
+      <SearchBar setUserSelection={setUserSelection} />
     </div>
   );
 };
