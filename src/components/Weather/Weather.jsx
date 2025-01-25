@@ -3,6 +3,7 @@ import { WEATHER_API_URL, WEATHER_API_KEY } from "../../config/config.jsx";
 import "./Weather.css";
 
 export const WeatherDetails = (data) => {
+  console.log(WEATHER_API_URL,WEATHER_API_KEY);
   if (!data.userSelection) {
     console.log("No weatherData");
     return;
