@@ -23,7 +23,6 @@ export const SearchBar = ({ setUserSelection }) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setDropdownVisible(false);
       }
-      //console.log("clicked outside",dropdownRef.current,event.target);
     };
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -33,7 +32,6 @@ export const SearchBar = ({ setUserSelection }) => {
   }, []);
 
   useEffect(() => {
-    //console.log(debouncedInput, apiCall);
     if (debouncedInput.length < 3 || !apiCall) {
       return;
     }
@@ -46,7 +44,6 @@ export const SearchBar = ({ setUserSelection }) => {
         throw new Error("Request failed!");
       })
       .then((data) => {
-        //console.log(data);
         setResults(
           data.data.map((city) => {
             return {
@@ -58,13 +55,13 @@ export const SearchBar = ({ setUserSelection }) => {
         );
       })
       .catch((error) => {
-        ////console.error(error);
+        console.log(error);
       });
   }, [debouncedInput, setResults]);
 
   const CitiesDropDown = () => {
     if (!dropdownVisible || !results || results.length === 0) {
-      return null; 
+      return null;
     }
     return (
       <div className="cities-dropdown" ref={dropdownRef}>
@@ -93,7 +90,7 @@ export const SearchBar = ({ setUserSelection }) => {
   };
 
   const handleOnChange = (searchData) => {
-    setDropdownVisible(true); 
+    setDropdownVisible(true);
     setInput(searchData);
     setAPICall(true);
     if (searchData.length < 3) {
