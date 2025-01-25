@@ -32,3 +32,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
+      
+      - name: Post deployment status
+        run: npm run deploy
+        
