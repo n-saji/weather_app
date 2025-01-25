@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { GEO_API_URL, GEO_OPTIONS } from "../../../config/config.jsx";
+import "./SearchBar.css";
 
 export const SearchBar = ({ setUserSelection }) => {
   const [input, setInput] = useState("");
   const [debouncedInput, setDebouncedInput] = useState("");
   const [results, setResults] = useState();
   const [apiCall, setAPICall] = useState(true);
-  
+  const [dropdownVisible, setDropdownVisible] = useState(true);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -17,7 +19,21 @@ export const SearchBar = ({ setUserSelection }) => {
   }, [input]);
 
   useEffect(() => {
-    console.log(debouncedInput, apiCall);
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownVisible(false);
+      }
+      //console.log("clicked outside",dropdownRef.current,event.target);
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    //console.log(debouncedInput, apiCall);
     if (debouncedInput.length < 3 || !apiCall) {
       return;
     }
@@ -30,7 +46,7 @@ export const SearchBar = ({ setUserSelection }) => {
         throw new Error("Request failed!");
       })
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         setResults(
           data.data.map((city) => {
             return {
@@ -42,13 +58,16 @@ export const SearchBar = ({ setUserSelection }) => {
         );
       })
       .catch((error) => {
-        console.error(error);
+        ////console.error(error);
       });
   }, [debouncedInput, setResults]);
 
   const CitiesDropDown = () => {
+    if (!dropdownVisible || !results || results.length === 0) {
+      return null; 
+    }
     return (
-      <div className="cities-dropdown">
+      <div className="cities-dropdown" ref={dropdownRef}>
         {results &&
           results.length > 0 &&
           results.map((city) => (
@@ -56,6 +75,7 @@ export const SearchBar = ({ setUserSelection }) => {
               key={city.value}
               value={city.name}
               onClick={() => handleDropDownClick(city)}
+              className="cities-dropdown-item"
             >
               {city.name + ", " + city.countryCode}
             </div>
@@ -67,11 +87,13 @@ export const SearchBar = ({ setUserSelection }) => {
   const handleDropDownClick = (city) => {
     setInput(city.name);
     setAPICall(false);
-    setResults([]);
+    // setResults([]);
+    setDropdownVisible(false);
     setUserSelection(city);
   };
 
   const handleOnChange = (searchData) => {
+    setDropdownVisible(true); 
     setInput(searchData);
     setAPICall(true);
     if (searchData.length < 3) {
@@ -80,16 +102,23 @@ export const SearchBar = ({ setUserSelection }) => {
   };
 
   return (
-    <div className="search-bar">
-      <label htmlFor="search">Search for a city</label>
-      <input
-        type="text"
-        value={input}
-        onChange={(e) => handleOnChange(e.target.value)}
-        // placeholder="Search for a city..."
-      />
-      <CitiesDropDown />
-    </div>
+    <>
+      <div className="search-bar">
+        <label htmlFor="search">Search for a city</label>
+        <div className="search-bar-input">
+          <div className="search-bar-input-field">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => handleOnChange(e.target.value)}
+              onFocus={() => setDropdownVisible(true)}
+              // placeholder="Search for a city..."
+            />
+          </div>
+          <CitiesDropDown />
+        </div>
+      </div>
+    </>
   );
 };
 
