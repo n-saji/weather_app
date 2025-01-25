@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://n-saji.github.io/weather-app/",
+  "homepage": "https://n-saji.github.io/weather_app/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
