@@ -23,7 +23,8 @@ jobs:
 
       - name: Build the React app
         env:
-          REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
+          GEO_API_KEY: ${{ secrets.MY_GEO_API_KEY }}
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
         run: npm run build
 
       - name: Deploy to GitHub Pages
