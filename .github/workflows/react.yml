@@ -20,18 +20,17 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-
-      - name: Set Git user info
-        run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
+          
 
       - name: Build the React app
         env:
           GEO_API_KEY: ${{ secrets.GEO_API_KEY }}
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
-        run: npm run deploy
-        
+        run: 
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          npm run deploy
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
