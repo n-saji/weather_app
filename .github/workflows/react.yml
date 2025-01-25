@@ -27,6 +27,9 @@ jobs:
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
         run: npm run build
 
+      - name: Post deployment status
+        run: npm run deploy
+
       - name: Set Git user info
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -38,6 +41,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
       
-      - name: Post deployment status
-        run: npm run deploy
+
         
