@@ -26,8 +26,8 @@ jobs:
         env:
           GEO_API_KEY: ${{ secrets.GEO_API_KEY }}
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
-        run: 
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com" 
           git config --global user.name "github-actions[bot]"
           npm run deploy
 
