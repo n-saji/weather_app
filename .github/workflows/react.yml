@@ -26,10 +26,12 @@ jobs:
         env:
           GEO_API_KEY: ${{ secrets.GEO_API_KEY }}
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com" 
           git config --global user.name "github-actions[bot]"
           npm run deploy
+          
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
