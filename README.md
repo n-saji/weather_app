@@ -57,7 +57,7 @@ The app uses the [OpenWeatherMap API](https://openweathermap.org/api) to fetch w
 
 ## Screenshots
 
-![Home Page](https://github.com/n-saji/weather_app/sample.png)
+![Home Page](https://github.com/n-saji/weather_app/blob/main/sample.png)
 *Screenshot of the home page showing current weather details.*
 
 
