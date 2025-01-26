@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { WEATHER_API_URL, WEATHER_API_KEY } from "../../config/config.jsx";
 import "./Weather.css";
 
 export const WeatherDetails = (data) => {
@@ -14,7 +13,7 @@ export const WeatherDetails = (data) => {
   }
   useEffect(() => {
     const currentWeatherFetch = fetch(
-      `${WEATHER_API_URL}/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=metric`
+      `https://nodejs-bd2k.onrender.com/api/weather?lat=${lat}&lon=${lon}`
     );
     currentWeatherFetch
       .then((response) => response.json())
@@ -23,12 +22,12 @@ export const WeatherDetails = (data) => {
         setWeatherData({ city: data.userSelection.name, ...response_1 });
       })
       .catch((error) => {
-        return;
+        return error;
       });
   }, [lat, lon]);
 
   if (!weatherData) {
-    return <div>Loading...</div>;
+    return <div className="loader">Loading...</div>;
   }
 
   return (

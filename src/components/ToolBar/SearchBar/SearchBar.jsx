@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { GEO_API_URL, GEO_OPTIONS } from "../../../config/config.jsx";
 import "./SearchBar.css";
 
 export const SearchBar = ({ setUserSelection }) => {
@@ -36,7 +35,7 @@ export const SearchBar = ({ setUserSelection }) => {
       return;
     }
 
-    fetch(GEO_API_URL + `/cities?namePrefix=${debouncedInput}`, GEO_OPTIONS)
+    fetch('https://nodejs-bd2k.onrender.com/api/cities?city=' + debouncedInput)
       .then((response) => {
         if (response.ok) {
           return response.json();
