@@ -5,7 +5,6 @@ import { WeatherDetails } from "./components/Weather/Weather.jsx";
 
 function App() {
   const [userSelection, setUserSelection] = useState();
-
   return (
     <>
       <ToolBar setUserSelection={setUserSelection} />

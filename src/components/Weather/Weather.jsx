@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Weather.css";
+import SERVER_API from "../../config/config.jsx";
 
 export const WeatherDetails = (data) => {
   if (!data.userSelection) {
@@ -13,7 +14,7 @@ export const WeatherDetails = (data) => {
   }
   useEffect(() => {
     const currentWeatherFetch = fetch(
-      `https://nodejs-bd2k.onrender.com/api/weather?lat=${lat}&lon=${lon}`
+      SERVER_API + `/weather?lat=${lat}&lon=${lon}`
     );
     currentWeatherFetch
       .then((response) => response.json())

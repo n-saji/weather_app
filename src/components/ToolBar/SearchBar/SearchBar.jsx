@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import "./SearchBar.css";
+import SERVER_API from "../../../config/config.jsx";
 
 export const SearchBar = ({ setUserSelection }) => {
   const [input, setInput] = useState("");
@@ -35,7 +36,7 @@ export const SearchBar = ({ setUserSelection }) => {
       return;
     }
 
-    fetch('https://nodejs-bd2k.onrender.com/api/cities?city=' + debouncedInput)
+    fetch(SERVER_API + "/cities?city=" + debouncedInput)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -83,7 +84,6 @@ export const SearchBar = ({ setUserSelection }) => {
   const handleDropDownClick = (city) => {
     setInput(city.name);
     setAPICall(false);
-    // setResults([]);
     setDropdownVisible(false);
     setUserSelection(city);
   };
@@ -108,7 +108,6 @@ export const SearchBar = ({ setUserSelection }) => {
               value={input}
               onChange={(e) => handleOnChange(e.target.value)}
               onFocus={() => setDropdownVisible(true)}
-              // placeholder="Search for a city..."
             />
           </div>
           <CitiesDropDown />
