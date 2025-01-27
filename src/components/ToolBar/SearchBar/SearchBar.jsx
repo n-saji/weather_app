@@ -60,8 +60,17 @@ export const SearchBar = ({ setUserSelection }) => {
   }, [debouncedInput, setResults]);
 
   const CitiesDropDown = () => {
-    if (!dropdownVisible || !results || results.length === 0) {
+    if (!dropdownVisible )  {
       return null;
+    }
+    if (results && results.length === 0) {
+      return (
+        <div className="cities-dropdown" ref={dropdownRef}>
+          <div className="cities-dropdown-empty-item">
+            No results found
+          </div>
+        </div>
+      );
     }
     return (
       <div className="cities-dropdown" ref={dropdownRef}>
