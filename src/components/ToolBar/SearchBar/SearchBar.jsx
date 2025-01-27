@@ -63,7 +63,7 @@ export const SearchBar = ({ setUserSelection }) => {
     if (!dropdownVisible )  {
       return null;
     }
-    if (results && results.length === 0) {
+    if (results && results.length === 0 && input.length > 0) {
       return (
         <div className="cities-dropdown" ref={dropdownRef}>
           <div className="cities-dropdown-empty-item">
