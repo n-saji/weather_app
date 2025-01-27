@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Weather.css";
-import SERVER_API from "../../config/config.jsx";
+import { SERVER_API } from "../../config/config.jsx";
 
 export const WeatherDetails = (data) => {
   if (!data.userSelection) {

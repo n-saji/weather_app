@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import "./SearchBar.css";
-import SERVER_API from "../../../config/config.jsx";
+import { SERVER_API } from "../../../config/config.jsx";
 
 export const SearchBar = ({ setUserSelection }) => {
   const [input, setInput] = useState("");
@@ -49,7 +49,7 @@ export const SearchBar = ({ setUserSelection }) => {
             return {
               value: `${city.latitude} ${city.longitude}`,
               name: `${city.name}`,
-              countryCode: `${city.countryCode}`,
+              countryCode: `${city.country}`,
             };
           }) || []
         );
@@ -60,15 +60,13 @@ export const SearchBar = ({ setUserSelection }) => {
   }, [debouncedInput, setResults]);
 
   const CitiesDropDown = () => {
-    if (!dropdownVisible )  {
+    if (!dropdownVisible) {
       return null;
     }
     if (results && results.length === 0 && input.length > 0) {
       return (
         <div className="cities-dropdown" ref={dropdownRef}>
-          <div className="cities-dropdown-empty-item">
-            No results found
-          </div>
+          <div className="cities-dropdown-empty-item">No results found</div>
         </div>
       );
     }
@@ -117,6 +115,12 @@ export const SearchBar = ({ setUserSelection }) => {
               value={input}
               onChange={(e) => handleOnChange(e.target.value)}
               onFocus={() => setDropdownVisible(true)}
+            />
+            <img
+              src="https://img.icons8.com/ios/40/search--v1.png"
+              alt="search"
+              className="serach-button"
+              onClick={() => setDropdownVisible(true)}
             />
           </div>
           <CitiesDropDown />

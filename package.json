@@ -17,6 +17,7 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "gh-pages": "^6.3.0",
+    "lottie-react-native": "^7.2.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-select-async-paginate": "^0.7.9"
