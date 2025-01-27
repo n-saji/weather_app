@@ -28,3 +28,27 @@
     align-items: center;
     text-align: center;
 }
+.temperature{
+    font-size: 2.3rem;
+    font-weight: 700;
+    font-family: monospace;
+}
+.parameter-label,.parameter-label-header{
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+.parameter-label-header{
+    text-decoration: underline;
+    font-size: 1.4rem;
+}
+.parameter-value{
+    font-size: 1.0rem;
+    font-weight: 500;
+
+}
+.loader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: small;
+}

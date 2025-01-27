@@ -50,7 +50,7 @@ export const WeatherDetails = (data) => {
         <p className="temperature">{Math.round(weatherData.main.temp)}°C</p>
         <div className="details">
           <div className="parameter-row">
-            <span className="parameter-label">Details</span>
+            <span className="parameter-label-header">Details</span>
           </div>
           <div className="parameter-row">
             <span className="parameter-label">Feels like: </span>

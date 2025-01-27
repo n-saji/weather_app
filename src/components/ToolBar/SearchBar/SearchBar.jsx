@@ -9,6 +9,7 @@ export const SearchBar = ({ setUserSelection }) => {
   const [apiCall, setAPICall] = useState(true);
   const [dropdownVisible, setDropdownVisible] = useState(true);
   const dropdownRef = useRef(null);
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -35,6 +36,8 @@ export const SearchBar = ({ setUserSelection }) => {
     if (debouncedInput.length < 3 || !apiCall) {
       return;
     }
+    setLoader(true);
+    setResults([]);
 
     fetch(SERVER_API + "/cities?city=" + debouncedInput)
       .then((response) => {
@@ -56,6 +59,9 @@ export const SearchBar = ({ setUserSelection }) => {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoader(false);
       });
   }, [debouncedInput, setResults]);
 
@@ -63,7 +69,7 @@ export const SearchBar = ({ setUserSelection }) => {
     if (!dropdownVisible) {
       return null;
     }
-    if (results && results.length === 0 && input.length > 0) {
+    if (!loader && results && results.length === 0 && input.length > 0) {
       return (
         <div className="cities-dropdown" ref={dropdownRef}>
           <div className="cities-dropdown-empty-item">No results found</div>
@@ -72,6 +78,7 @@ export const SearchBar = ({ setUserSelection }) => {
     }
     return (
       <div className="cities-dropdown" ref={dropdownRef}>
+        {loader && <div className="loader">Loading...</div>}
         {results &&
           results.length > 0 &&
           results.map((city) => (
@@ -117,7 +124,7 @@ export const SearchBar = ({ setUserSelection }) => {
               onFocus={() => setDropdownVisible(true)}
             />
             <img
-              src="https://img.icons8.com/ios/40/search--v1.png"
+              src="https://img.icons8.com/ios/30/search--v1.png"
               alt="search"
               className="serach-button"
               onClick={() => setDropdownVisible(true)}
