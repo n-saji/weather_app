@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Weather.css";
 import { SERVER_API } from "../../config/config.jsx";
+import { Forecast } from "./Forecast/forecast.jsx";
 
 export const WeatherDetails = (data) => {
   if (!data.userSelection) {
@@ -12,6 +13,7 @@ export const WeatherDetails = (data) => {
   if (!lat || !lon) {
     return;
   }
+
   useEffect(() => {
     const currentWeatherFetch = fetch(
       SERVER_API + `/weather?lat=${lat}&lon=${lon}`
@@ -32,53 +34,57 @@ export const WeatherDetails = (data) => {
   }
 
   return (
-    <div className="weather">
-      <div className="top">
-        <div>
-          {<p className="city">{weatherData.city}</p>}
-          <p className="weather-description">
-            {weatherData.weather[0].description}
-          </p>
+    <>
+      <div className="weather">
+        <div className="top">
+          <div>
+            {<p className="city">{weatherData.city}</p>}
+            <p className="weather-description">
+              {weatherData.weather[0].description}
+            </p>
+          </div>
+          <img
+            alt="weather"
+            className="weather-icon"
+            src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`}
+          />
         </div>
-        <img
-          alt="weather"
-          className="weather-icon"
-          src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`}
-        />
-      </div>
-      <div className="bottom">
-        <p className="temperature">{Math.round(weatherData.main.temp)}°C</p>
-        <div className="details">
-          <div className="parameter-row">
-            <span className="parameter-label-header">Details</span>
-          </div>
-          <div className="parameter-row">
-            <span className="parameter-label">Feels like: </span>
-            <span className="parameter-value">
-              {Math.round(weatherData.main.feels_like)}°C
-            </span>
-          </div>
-          <div className="parameter-row">
-            <span className="parameter-label">Wind: </span>
-            <span className="parameter-value">
-              {weatherData.wind.speed} m/s
-            </span>
-          </div>
-          <div className="parameter-row">
-            <span className="parameter-label">Humidity: </span>
-            <span className="parameter-value">
-              {weatherData.main.humidity}%
-            </span>
-          </div>
-          <div className="parameter-row">
-            <span className="parameter-label">Pressure: </span>
-            <span className="parameter-value">
-              {weatherData.main.pressure} hPa
-            </span>
+        <div className="bottom">
+          <p className="temperature">{Math.round(weatherData.main.temp)}°C</p>
+          <div className="details">
+            <div className="parameter-row">
+              <span className="parameter-label-header">Details</span>
+            </div>
+            <div className="parameter-row">
+              <span className="parameter-label">Feels like: </span>
+              <span className="parameter-value">
+                {Math.round(weatherData.main.feels_like)}°C
+              </span>
+            </div>
+            <div className="parameter-row">
+              <span className="parameter-label">Wind: </span>
+              <span className="parameter-value">
+                {weatherData.wind.speed} m/s
+              </span>
+            </div>
+            <div className="parameter-row">
+              <span className="parameter-label">Humidity: </span>
+              <span className="parameter-value">
+                {weatherData.main.humidity}%
+              </span>
+            </div>
+            <div className="parameter-row">
+              <span className="parameter-label">Pressure: </span>
+              <span className="parameter-value">
+                {weatherData.main.pressure} hPa
+              </span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <h2 className="forecast-title">Forecast</h2>
+      <Forecast lat={lat} lon={lon} />
+    </>
   );
 };
 

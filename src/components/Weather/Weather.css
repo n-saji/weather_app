@@ -52,3 +52,39 @@
     align-items: center;
     font-size: small;
 }
+.forecast-title{
+    align-items: center;
+    text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+    .weather{
+        /* padding: 10px; */
+    }
+    .top .city{
+        font-size: 1.4rem;
+    }
+    .top .weather-description{
+        font-size: 1.2rem;
+    }
+    .top .weather-icon{
+        width: 70px;
+        height: 70px;
+    }
+    .bottom{
+        font-size: 1.2rem;
+    }
+    .temperature{
+        font-size: 1.8rem;
+    }
+    .parameter-label,.parameter-label-header{
+        font-size: 1.0rem;
+    }
+    .parameter-value{
+        font-size: 0.8rem;
+    }
+    .loader{
+        font-size: x-small;
+    }
+    
+}
