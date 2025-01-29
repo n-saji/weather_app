@@ -2,6 +2,8 @@
 
 This is a simple and intuitive Weather App built using React. The application allows users to view current weather conditions for any location worldwide, with features like temperature, humidity, wind speed.
 
+Link for the website [Weather App](https://n-saji.github.io/weather_app/)
+
 ## Features
 
 - **Search Locations**: Enter a city name to fetch real-time weather data.
