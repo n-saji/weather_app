@@ -65,9 +65,7 @@ The app uses the [OpenWeatherMap API](https://openweathermap.org/api) to fetch w
 
 ## Future Enhancements
 
-- Add weather forecast.
 - Allow users to save favorite locations.
-- Include hourly weather updates.
 - Add dark mode.
 
 ## License
