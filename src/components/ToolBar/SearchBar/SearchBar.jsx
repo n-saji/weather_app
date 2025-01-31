@@ -12,6 +12,20 @@ export const SearchBar = ({ setUserSelection }) => {
   const [loader, setLoader] = useState(false);
 
   useEffect(() => {
+    if (
+      localStorage.getItem("lat") &&
+      localStorage.getItem("lon") &&
+      localStorage.getItem("city")
+    ) {
+      const city = localStorage.getItem("city");
+      const lat = localStorage.getItem("lat");
+      const lon = localStorage.getItem("lon");
+      setUserSelection({ name: city, value: `${lat} ${lon}` });
+      setInput(city);
+    }
+  }, []);
+
+  useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedInput(input);
     }, 500);
@@ -34,6 +48,12 @@ export const SearchBar = ({ setUserSelection }) => {
 
   useEffect(() => {
     if (debouncedInput.length < 3 || !apiCall) {
+      return;
+    }
+    if (
+      localStorage.getItem("city") &&
+      localStorage.getItem("city").includes(debouncedInput)
+    ) {
       return;
     }
     setLoader(true);
@@ -100,6 +120,7 @@ export const SearchBar = ({ setUserSelection }) => {
     setAPICall(false);
     setDropdownVisible(false);
     setUserSelection(city);
+    UpdateLatLon(city);
   };
 
   const handleOnChange = (searchData) => {
@@ -135,6 +156,17 @@ export const SearchBar = ({ setUserSelection }) => {
       </div>
     </>
   );
+};
+
+export const UpdateLatLon = (res) => {
+  if (!res) {
+    return;
+  }
+
+  const [lat, lon] = res.value.split(" ");
+  localStorage.setItem("lat", lat);
+  localStorage.setItem("lon", lon);
+  localStorage.setItem("city", res.name);
 };
 
 export default SearchBar;
